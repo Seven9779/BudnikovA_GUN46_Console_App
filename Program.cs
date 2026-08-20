@@ -1,44 +1,68 @@
 ﻿class Program
 {
-
     static void Main(string[] args)
     {
-        int result = 0;
-        if (int.TryParse(Console.ReadLine(), out int a) && int.TryParse(Console.ReadLine(), out int b))
+
+        Console.WriteLine("Please input two numbers for bit operations");
+        Console.WriteLine("First number: ");
+        if (!int.TryParse(Console.ReadLine(), out int a)) 
         {
-            Console.WriteLine("Valid operation & | ^");
-            switch (Console.ReadLine())
-            {
-                case "&":
-                    result = a & b;
-                    break;
-                case "|":
-                    result = a | b;
-                    break;
-                case "^":
-                    result = a ^ b;
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid input, please try again. Valid operation - &, |, ^");
-                    return;
-
-            }
+            Console.WriteLine("Incorrect. Please enter number");
+            return;
         }
+       
 
-        else
+        Console.WriteLine("Second number: ");
+        if (!int.TryParse(Console.ReadLine(), out int b)) 
         {
-            Console.WriteLine("Invalid Input. Please enter a number");
+            Console.WriteLine("Incorrect. Please enter number");
             return;
         }
 
-        Console.WriteLine("\nCorrect\n");
-        Console.WriteLine($"decimal {result}");
-        Console.WriteLine($"binary {result:b8}");
-        Console.WriteLine($"hexadecimal {result:X}");
+
+        Console.WriteLine("Enter operation (&, |, ^): ");
+        if (!char.TryParse(Console.ReadLine(), out char c)) 
+        {
+            Console.WriteLine("Incorrect. Plese Enter bit operation: ");
+            return;
+        }
+
+        int? result = BitOperation(a,b,c);
+
+        if(result == null) { return; }
+
+
+        Console.WriteLine("\nResult\n");
+        Console.WriteLine($"decimal: {result}");
+        Console.WriteLine($"binary: {result:b8}");
+        Console.WriteLine($"hexadecimal: {result:X}");
 
 
     }
+
+
+
+    static int? BitOperation(int firstNumber, int secondNumber, char bitOperation) 
+    {
+        switch (bitOperation)
+        {
+            case '&':
+                return firstNumber & secondNumber;
+            case '|':
+                return firstNumber | secondNumber;
+            case '^':
+                return firstNumber ^ secondNumber;
+            default:
+                Console.WriteLine("Incorrect, please try again. Valid operation - (&, |, ^)");
+                return null;   
+        }
+    }
+
 }
+
+
+
+  
+
 
 
