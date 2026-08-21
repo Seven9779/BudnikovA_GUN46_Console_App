@@ -23,14 +23,13 @@
         Console.WriteLine("Enter operation (&, |, ^): ");
         if (!char.TryParse(Console.ReadLine(), out char c)) 
         {
-            Console.WriteLine("Incorrect. Plese Enter bit operation: ");
             return;
         }
 
-        int? result = BitOperation(a,b,c);
-
-        if(result == null) { return; }
-
+        if(!TryBitOperation(a, b, c, out int result)) 
+        {
+            return;
+        }
 
         Console.WriteLine("\nResult\n");
         Console.WriteLine($"decimal: {result}");
@@ -42,19 +41,23 @@
 
 
 
-    static int? BitOperation(int firstNumber, int secondNumber, char bitOperation) 
+    static bool TryBitOperation(int a, int b, char op, out int result)
     {
-        switch (bitOperation)
+        switch (op)
         {
             case '&':
-                return firstNumber & secondNumber;
+                 result = a & b;
+                return true;
             case '|':
-                return firstNumber | secondNumber;
+                result = a | b;
+                return true;
             case '^':
-                return firstNumber ^ secondNumber;
+                result = a ^ b;
+                return true;
             default:
                 Console.WriteLine("Incorrect, please try again. Valid operation - (&, |, ^)");
-                return null;   
+                result = 0;
+                return false;   
         }
     }
 
