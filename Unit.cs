@@ -1,27 +1,33 @@
-﻿namespace Units 
+﻿using Intervals;
+
+namespace Units 
 {
     public class Unit
     {
-        private const int DefaultDamage = 5;
         private const float DefaultArmor = 0.6f;
         private const float DefaultHealth = 100f;
 
         private float health;
         public string Name { get; }
-        public int Damage { get; }
+        public Interval Damage { get; }
         public float Armor { get; }
         public float Health => health;
         
 
 
-        public Unit() : this("Unknown Unit") { }
+        public Unit() : this("Unknown Unit",0,10) { }
 
-        public Unit(string name)
+        public Unit(string name) 
         {
             Name = name;
-            Damage = DefaultDamage;
             Armor = DefaultArmor;
             health = DefaultHealth;
+       
+        }
+
+        public Unit(string name, int minDamage, int maxDamage) : this(name)
+        {
+            Damage = new Interval(minDamage, maxDamage);
         }
 
         public float GetRealHealth()
