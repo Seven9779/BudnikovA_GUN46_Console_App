@@ -1,4 +1,6 @@
-﻿public class Program
+﻿using Units;
+
+public class Program
 {
     public static void Main(string[] args) 
     {
