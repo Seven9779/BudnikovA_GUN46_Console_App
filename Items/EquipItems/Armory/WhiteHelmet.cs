@@ -3,14 +3,11 @@
 
 namespace GamePrototype.Items.EquipItems;
 
-public class WhiteHelmet : Armour
+public class WhiteHelmet : Helmet
 {
     public WhiteHelmet(uint defence, uint durability, string name) : base(defence, durability, name)
     {
     }
-
-    public override uint Defence { get; set; }
     
-    public override EquipSlot Slot => EquipSlot.Helmet;
 
 }

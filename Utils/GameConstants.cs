@@ -2,17 +2,17 @@
 {
     public static class GameConstants
     {
-        public static string Gold = "Gold";
-        public static string HealthPotion = "Health Potion";
-        public static string Grindstone = nameof(Grindstone);
-        public static string Goblin = nameof(Goblin);
-        public static string DarkHelmet = nameof(DarkHelmet);
-        public static string WhiteHelmet = nameof(WhiteHelmet);
-        public static string DarkBreastPlate = nameof(DarkBreastPlate);
-        public static string WhiteBreastPlate = nameof(WhiteBreastPlate);
-        public static string Sword = nameof(Sword);
-        public static string Lance = nameof(Lance);
-        public static string Bow = nameof(Bow);
-        public static string Dart = nameof(Dart);
+        public const string Gold = nameof(Gold);
+        public const string HealthPotion = nameof(HealthPotion);
+        public const string Grindstone = nameof(Grindstone);
+        public const string Goblin = nameof(Goblin);
+        public const string DarkHelmet = nameof(DarkHelmet);
+        public const string WhiteHelmet = nameof(WhiteHelmet);
+        public const string DarkBreastPlate = nameof(DarkBreastPlate);
+        public const string WhiteBreastPlate = nameof(WhiteBreastPlate);
+        public const string Sword = nameof(Sword);
+        public const string Lance = nameof(Lance);
+        public const string Bow = nameof(Bow);
+        public const string Dart = nameof(Dart);
     }
 }

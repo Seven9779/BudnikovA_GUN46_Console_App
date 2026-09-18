@@ -16,7 +16,7 @@ namespace GamePrototype.Units
             {
                 return false;
             }
-            
+                
             _items.Add(item);
             return true;
         }

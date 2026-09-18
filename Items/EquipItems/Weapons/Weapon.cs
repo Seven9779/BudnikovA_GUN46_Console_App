@@ -6,13 +6,9 @@ namespace GamePrototype.Items.EquipItems
     {
         public Weapon(uint damage, uint durability, string name) : base(durability, name) => Damage = damage;
 
-        public abstract uint Damage { get;  set; }
+        public uint Damage { get; }
 
         public override EquipSlot Slot => EquipSlot.Weapon;
-
-        public override void Repair(uint delta)
-        {
-          base.Repair(delta);
-        }
+        
     }
 }

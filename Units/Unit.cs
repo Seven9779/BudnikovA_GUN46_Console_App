@@ -4,7 +4,7 @@ namespace GamePrototype.Units
 {
     public abstract class Unit
     {
-        private const int INVENTORY_SIZE = 3;
+        private const int INVENTORY_SIZE = 10;
         private uint _health;
         private uint _maxHealth;
         protected uint BaseDamage;

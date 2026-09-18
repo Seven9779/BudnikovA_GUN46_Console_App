@@ -27,50 +27,47 @@ namespace GamePrototype.Game
             Console.WriteLine("Enter your name");
             string name = Console.ReadLine();
             Console.WriteLine("Enter your difficulty");
-            Console.WriteLine($"Enter difficulty {Difficulty.Easy} or {Difficulty.Hard}");
-            string difficulty = Console.ReadLine();
+            
           
             UnitFactory factory;
             DungeonBuilder builder;
-            
-            switch (difficulty.ToLowerInvariant())
-            {
-                case "easy":
-                    factory = new UnitFactoryEasy();
-                    builder = new DungeonBuilderEasy();
-                    _player = factory.CreatePlayer(name);
-                    factory.CreateGoblinEnemy();
-                    _dungeon = builder.BuildDungeon();
-                    break;
-                case "hard":
-                    factory = new UnitFactoryHard();
-                    builder = new DungeonBuilderHard();
-                    _player = factory.CreatePlayer(name);
-                    factory.CreateGoblinEnemy();
-                    _dungeon = builder.BuildDungeon();
-                    break;
-            }
-            
-           
-            Console.WriteLine($"Hello {_player.Name}");
-            Console.WriteLine($"Enter Helmet 1. for {GameConstants.DarkHelmet} or 2. for {GameConstants.WhiteHelmet} ");
-            string helmet = Console.ReadLine();
-            if (UInt32.TryParse(helmet, out uint helmetNumber))
-            {
-                switch (helmetNumber)
-                {
-                    case 1:
-                        DarkHelmet darkHelmet = new DarkHelmet(10, 10, GameConstants.DarkHelmet);
-                        _player.EquipItemMethod(darkHelmet);
-                        break;
 
-                    case 2:
-                        WhiteHelmet whiteHelmet = new WhiteHelmet(10, 10, GameConstants.WhiteHelmet);
-                        _player.EquipItemMethod(whiteHelmet);
-                        break;
-                        
+            while (true)
+            {
+                Console.WriteLine($"Enter difficulty {Difficulty.Easy} or {Difficulty.Hard}");
+                string input = Console.ReadLine();
+                if (Enum.TryParse<Difficulty>(input, true, out var difficulty))
+                {
+                    switch (difficulty)
+                    {
+                        case Difficulty.Easy:
+                            factory = new UnitFactoryEasy();
+                            builder = new DungeonBuilderEasy(factory);
+                            Console.WriteLine("Difficulty - Easy");
+                            break;
+                        case Difficulty.Hard:
+                            factory = new UnitFactoryHard();
+                            builder = new DungeonBuilderHard(factory);
+                            Console.WriteLine("Difficulty - Hard");
+                            break;
+                        default:
+                            Console.WriteLine("Please choose right difficulty. Easy or Hard");
+                            continue;
+                    }
+
+                    _player = factory.CreatePlayer(name);
+                    _dungeon = builder.BuildDungeon();
+
+                    break;
+                }
+
+                else
+                {
+                    Console.WriteLine("Please choose right difficulty. Easy or Hard");
                 }
             }
+            
+            Console.WriteLine($"Hello {_player.Name}");
         }
 
         private void StartGameLoop()
@@ -87,15 +84,16 @@ namespace GamePrototype.Game
                 }
                 DisplayRouteOptions(currentRoom);
                 while (true) 
-                {
-                    if (Enum.TryParse<Direction>(Console.ReadLine(), out var direction) ) 
+                { 
+                    if (Enum.TryParse<Direction>(Console.ReadLine(), out var direction) && 
+                        currentRoom.Rooms.ContainsKey(direction)) 
                     {
                         currentRoom = currentRoom.Rooms[direction];
                         break;
                     }
                     else 
                     {
-                        Console.WriteLine("Wrong direction!");
+                        Console.WriteLine("Wrong direction! ");
                     }
                 }
             }

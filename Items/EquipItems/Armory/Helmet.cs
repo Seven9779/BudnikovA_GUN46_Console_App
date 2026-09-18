@@ -1,16 +1,12 @@
 ﻿using GamePrototype.Utils;
 
-
 namespace GamePrototype.Items.EquipItems;
 
-public class DarkHelmet : Armour
+public abstract class Helmet : EquipItem
 {
-    public DarkHelmet(uint defence, uint durability, string name) : base(defence, durability, name)
-    {
-    }
+    public Helmet(uint defence, uint durability, string name) : base(durability, name) => Defence = defence;
 
-    public override uint Defence { get; set; }
+    public uint Defence { get; }
     
     public override EquipSlot Slot => EquipSlot.Helmet;
-
 }
