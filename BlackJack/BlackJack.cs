@@ -14,7 +14,7 @@ public class BlackJack : CasinoGameBase
     {
         if (deckSize < 4 || deckSize > 52)
         {
-            throw new ArgumentOutOfRangeException(nameof(deckSize), "Deck size must be between 1 and 52");
+            throw new ArgumentOutOfRangeException(nameof(deckSize), "Deck size must be between 4 and 52");
         }
         _deckSize = deckSize;
         FactoryMethod();

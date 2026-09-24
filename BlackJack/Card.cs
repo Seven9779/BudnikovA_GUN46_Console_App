@@ -2,7 +2,6 @@
 
 public struct Card
 {
-    
     public readonly CardSuit CardSuit {get;}
     public readonly CardRank CardRank {get;}
 
