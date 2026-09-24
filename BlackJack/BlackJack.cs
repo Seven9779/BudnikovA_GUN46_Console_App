@@ -8,10 +8,11 @@ public class BlackJack : CasinoGameBase
     private readonly int _deckSize;
     private readonly Random _random = new Random();
     private readonly List<Card> _cards = new List<Card>();
-
+    private Queue<Card> _deck = new Queue<Card>();
+    
     public BlackJack(int deckSize)
     {
-        if (deckSize < 1 || deckSize > 52)
+        if (deckSize < 4 || deckSize > 52)
         {
             throw new ArgumentOutOfRangeException(nameof(deckSize), "Deck size must be between 1 and 52");
         }
@@ -38,7 +39,7 @@ public class BlackJack : CasinoGameBase
 
     private int GenerateAnotherIndex(int from, int to) => _random.Next(from, to);
 
-    public Queue<Card> Shuffle(List<Card> list)
+    private Queue<Card> Shuffle(List<Card> list)
     {
         if (null == list)
             throw new ArgumentNullException(nameof(list));
@@ -59,19 +60,19 @@ public class BlackJack : CasinoGameBase
         int enemyScore = 0;
         List<Card> playerDeck = new List<Card>();
         List<Card> enemyDeck = new List<Card>();
-        Queue<Card> deck = Shuffle(_cards);
+        _deck = Shuffle(_cards);
         Card card;
 
         Console.WriteLine("Game started. Player gets 2 cards");
-        playerDeck.Add(deck.Dequeue());
-        playerDeck.Add(deck.Dequeue());
+        playerDeck.Add(_deck.Dequeue());
+        playerDeck.Add(_deck.Dequeue());
         playerScore = CalculateSumScore(playerDeck);
 
         Console.WriteLine($"Your Cards");
         Console.WriteLine(String.Join(" | ", playerDeck.Select(card => $"{card.CardSuit} {card.CardRank}")));
         
-        enemyDeck.Add(deck.Dequeue());
-        enemyDeck.Add(deck.Dequeue());
+        enemyDeck.Add(_deck.Dequeue());
+        enemyDeck.Add(_deck.Dequeue());
 
         enemyScore = CalculateSumScore(enemyDeck);
 
@@ -81,14 +82,14 @@ public class BlackJack : CasinoGameBase
 
         while (playerScore < 21 && enemyScore < 21 && playerScore == enemyScore)
         {
-            card = deck.Dequeue();
+            card = _deck.Dequeue();
             playerDeck.Add(card);
             playerScore = CalculateSumScore(playerDeck);
             Console.WriteLine($"Your Cards");
             Console.WriteLine(String.Join(" | ", playerDeck.Select(card => $"{card.CardSuit} {card.CardRank}")));
 
 
-            card = deck.Dequeue();
+            card = _deck.Dequeue();
             enemyDeck.Add(card);
             enemyScore = CalculateSumScore(enemyDeck);
             Console.WriteLine($"Enemy Cards");

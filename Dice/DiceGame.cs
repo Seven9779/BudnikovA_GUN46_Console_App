@@ -11,6 +11,11 @@ public class DiceGame : CasinoGameBase
 
     public DiceGame(int countDice, int min, int max)
     {
+        if (countDice < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(countDice),"Count of dice must be greater than 0");
+        }
+
         _min = min;
         _max = max;
         _countDice = countDice;

@@ -8,10 +8,11 @@ public struct Dice
 
     public Dice(int min, int max)
     {
-        if (min < 1 || max < 1 || min >= max)
+        if (min < 1 || max < 1 || min > max)
         {
-            throw new WrongDiceNumberException($"Invalid input min - {min} and max - {max}. Valid min - 1, max - {int.MaxValue - 1}");
+            throw new WrongDiceNumberException($"Invalid input min - {min} and max - {max}. Valid min - 1, max - {int.MaxValue}");
         }
+
         
         _min = min;
         _max = max;
@@ -20,6 +21,6 @@ public struct Dice
 
     public readonly int Number
     {
-        get { return _random.Next(_min, _max + 1); }
+        get { return (int)_random.NextInt64(_min, (long)_max + 1); }
     }
 }

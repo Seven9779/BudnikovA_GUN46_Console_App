@@ -115,7 +115,7 @@ public class Casino : IGame
             long remainder = newMoney - int.MaxValue;
             Console.WriteLine(
                 $"You have bankrupted the casino! A new casino will be built here. Your remainder {remainder}");
-            _moneyPlayer = newMoney;
+            _moneyPlayer = int.MaxValue;
             SaveProfile();
             _endGame = true;
         }
@@ -155,11 +155,16 @@ public class Casino : IGame
     {
         
         var values = data.Split('\n');
-        if(values.Length < 2 || values.Length > 2) return;
+        if (values.Length != 2) 
+        {
+            Console.WriteLine("Invalid profile data. Please contact support");
+            _endGame = true;
+            return;
+        }
         _playerName = values[0];
         if (!long.TryParse(values[1], out _moneyPlayer))
         {
-            Console.WriteLine("Incorrect Type. Please send support message");
+            Console.WriteLine("Invalid profile data. Please contact support");
             _endGame = true;
             return;
         }
